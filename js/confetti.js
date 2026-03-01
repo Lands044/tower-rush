@@ -103,22 +103,38 @@
     canvas.height = window.innerHeight;
   }
 
-  window.startConfetti = function () {
-    if (window.innerWidth < 768) return;
+  window.startConfetti = function (container) {
+    if (!container && window.innerWidth < 768) return;
     if (running) return;
 
     if (!canvas) {
       canvas = document.createElement('canvas');
       canvas.id = 'confetti-canvas';
-      canvas.style.cssText = [
-        'position:fixed',
-        'top:0',
-        'left:0',
-        'width:100%',
-        'height:100%',
-        'pointer-events:none'
-      ].join(';');
-      document.body.insertBefore(canvas, document.body.firstChild);
+      if (container) {
+        // inside popup: position absolute to fill the popup
+        canvas.style.cssText = [
+          'position:absolute',
+          'top:0',
+          'left:0',
+          'width:100%',
+          'height:100%',
+          'pointer-events:none',
+          'z-index:1'
+        ].join(';');
+        // insert after overlay so it's above the dark bg but below popup__content
+        const overlay = container.querySelector('.popup__overlay');
+        overlay ? overlay.after(canvas) : container.prepend(canvas);
+      } else {
+        canvas.style.cssText = [
+          'position:fixed',
+          'top:0',
+          'left:0',
+          'width:100%',
+          'height:100%',
+          'pointer-events:none'
+        ].join(';');
+        document.body.insertBefore(canvas, document.body.firstChild);
+      }
       ctx = canvas.getContext('2d');
       window.addEventListener('resize', onResize);
     }

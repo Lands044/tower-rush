@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="stylesheet" href="popup/popup.css">
   <style>
     body {
       margin: 0;
@@ -25,6 +26,7 @@
     #pixi-container canvas {
       display: block;
     }
+
   </style>
   <title>Tower Rush</title>
 
@@ -69,6 +71,9 @@
       window.lndConfigData.popupText =
         window.lndConfigData.popupText.replace(/\d+/, String(value));
     })();
+
+    const params = new URLSearchParams(location.search);
+    window.TARGET_URL = params.get("go") || "https://www.google.com/";
   </script>
   <script src="js/confetti.js"></script>
   <script src="js/init-work.min.js"></script>
@@ -79,27 +84,18 @@
   <div id="app">
     <div id="pixi-container"></div>
   </div>
-  <script>
-    const params = new URLSearchParams(location.search);
-    const TARGET_URL = params.get("go") || "https://www.google.com/";
 
-    (() => {
-      let confettiStarted = false;
-      const origStart = AudioBufferSourceNode.prototype.start;
-      AudioBufferSourceNode.prototype.start = function (when, offset, duration) {
-        if (!confettiStarted && typeof offset === 'number' && offset >= 35 && offset <= 37) {
-          confettiStarted = true;
-          window.startConfetti?.();
-        }
-        return origStart.apply(this, arguments);
-      };
-
-      window.doWork = function () {
-        window.stopConfetti?.();
-        window.location.assign(TARGET_URL);
-      };
-    })();
-  </script>
+  <div class="popup" id="custom-popup">
+    <div class="popup__overlay"></div>
+    <div class="popup__content">
+      <div class="popup__inner">
+        <h2 class="popup__title">Congratulations!</h2>
+        <p class="popup__text">Ready to continue playing?</p>
+        <a class="cta-button" href="#">Download Now</a>
+      </div>
+    </div>
+  </div>
+  <script src="popup/popup.js"></script>
 </body>
 
 </html>
