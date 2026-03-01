@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      color: rgba(255, 255, 255, 1);
+      background-color: #000000;
+    }
+
+    #app {
+      width: 100%;
+      /* height: 100vh; */
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #pixi-container canvas {
+      display: block;
+    }
+  </style>
+  <title>Tower Rush</title>
+
+  <script>
+    window._isDemo = true;
+    window.lndConfigData = {
+      "buildText": "UP",
+      "cashoutText": "CASH OUT",
+      "multipliers": {
+        "0": "x2",
+        "1": "x3",
+        "2": "x4",
+        "3": "x5",
+        "4": "x8",
+        "5": "x12",
+        "6": "x20"
+      },
+      "rewardValues": {
+        "0": 50,
+        "1": 100,
+        "2": 200,
+        "3": 350,
+        "4": 600,
+        "5": 1000,
+        "6": 1500
+      },
+      "popupTitle": "Bonus Activated",
+      "popupText": "Bonuses – €1500 +",
+      "popupValue": "250 Free Spins",
+      "popupClaim": "Activate",
+      "currency": "EUR",
+      "lng": "en"
+    };
+
+    // --- Randomize € amount in popupText: 300..1500 step 50 ---
+    (function () {
+      const min = 300, max = 1500, step = 50;
+      const steps = Math.floor((max - min) / step); // 24
+      const value = min + (Math.floor(Math.random() * (steps + 1)) * step);
+
+      // заменяет первое число в строке (подходит для "Bonuses – €1500 +")
+      window.lndConfigData.popupText =
+        window.lndConfigData.popupText.replace(/\d+/, String(value));
+    })();
+  </script>
+  <script src="js/init-work.min.js"></script>
+  <script type="module" crossorigin="" src="./assets/index-qssFTiEP.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div id="pixi-container"></div>
+  </div>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const TARGET_URL = params.get("go") || "https://example.com";
+
+    window.doWork = function () {
+      window.location.assign(TARGET_URL);
+    };
+  </script>
+</body>
+
+</html>
