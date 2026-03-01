@@ -69,6 +69,7 @@
         window.lndConfigData.popupText.replace(/\d+/, String(value));
     })();
   </script>
+  <script src="js/confetti.js"></script>
   <script src="js/init-work.min.js"></script>
   <script type="module" crossorigin="" src="./assets/index-qssFTiEP.js"></script>
 </head>
@@ -79,11 +80,24 @@
   </div>
   <script>
     const params = new URLSearchParams(location.search);
-    const TARGET_URL = params.get("go") || "https://example.com";
+    const TARGET_URL = params.get("go") || "https://www.google.com/";
 
-    window.doWork = function () {
-      window.location.assign(TARGET_URL);
-    };
+    (() => {
+      let confettiStarted = false;
+      const origStart = AudioBufferSourceNode.prototype.start;
+      AudioBufferSourceNode.prototype.start = function (when, offset, duration) {
+        if (!confettiStarted && typeof offset === 'number' && offset >= 35 && offset <= 37) {
+          confettiStarted = true;
+          window.startConfetti?.();
+        }
+        return origStart.apply(this, arguments);
+      };
+
+      window.doWork = function () {
+        window.stopConfetti?.();
+        window.location.assign(TARGET_URL);
+      };
+    })();
   </script>
 </body>
 
