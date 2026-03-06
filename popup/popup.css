@@ -150,14 +150,14 @@
 }
 
 .rotate-overlay__content svg {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   animation: rotate-hint 1.5s ease-in-out infinite alternate;
 }
 
 .rotate-overlay__content p {
-  font-size: 2rem;
-  max-width: 30rem;
+  font-size: 1.8rem;
+  max-width: 26rem;
   line-height: 1.4;
 }
 
