@@ -81,20 +81,33 @@
 </head>
 
 <body>
-  <div id="app">
-    <div id="pixi-container"></div>
-  </div>
-
-  <div class="popup" id="custom-popup">
-    <div class="popup__overlay"></div>
-    <div class="popup__content">
-      <div class="popup__inner">
-        <h2 class="popup__title">Congratulations!</h2>
-        <p class="popup__text">Ready to continue playing?</p>
-        <a class="cta-button" href="#">Download Now</a>
+  <div class="wrapper">
+    <div id="app">
+      <div id="pixi-container"></div>
+    </div>
+    
+    <div class="popup" id="custom-popup">
+      <div class="popup__overlay"></div>
+      <div class="popup__content">
+        <div class="popup__inner">
+          <h2 class="popup__title">Congratulations!</h2>
+          <p class="popup__text">Ready to continue playing?</p>
+          <a class="cta-button" href="#">Download Now</a>
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="rotate-overlay">
+    <div class="rotate-overlay__content">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="4" y="2" width="16" height="20" rx="2" />
+        <path d="M12 18h.01" />
+      </svg>
+      <p>Please rotate your device to portrait mode</p>
+    </div>
+  </div>
+
   <script src="popup/popup.js"></script>
 </body>
 
